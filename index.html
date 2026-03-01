@@ -558,6 +558,55 @@
   .class-input::placeholder { color: var(--border); font-weight: 400; }
   .class-input:focus { outline: none; }
 </style>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBYdEsFdqya8BbN2A2Q6GGvfotr98UrY_Y",
+      authDomain: "my-homepage-437dd.firebaseapp.com",
+      projectId: "my-homepage-437dd",
+      storageBucket: "my-homepage-437dd.firebasestorage.app",
+      messagingSenderId: "988199054923",
+      appId: "1:988199054923:web:68534ad1bc23e268e367ce"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    // حفظ في Firebase
+    window.saveToFirebase = async function(data) {
+      try {
+        await setDoc(doc(db, 'weekly', 'schedule'), {
+          data: JSON.stringify(data),
+          updatedAt: new Date().toISOString()
+        });
+        return true;
+      } catch(e) { console.error('Firebase save error:', e); return false; }
+    };
+
+    // جلب من Firebase
+    window.loadFromFirebase = async function() {
+      try {
+        const snap = await getDoc(doc(db, 'weekly', 'schedule'));
+        if (snap.exists()) return JSON.parse(snap.data().data);
+        return null;
+      } catch(e) { console.error('Firebase load error:', e); return null; }
+    };
+
+    // تحميل البيانات عند فتح الصفحة
+    window.addEventListener('load', async () => {
+      const remoteData = await window.loadFromFirebase();
+      if (remoteData) {
+        localStorage.setItem('ahmd-weekly-v3', JSON.stringify(remoteData));
+        if (typeof buildFullWeekly === 'function') buildFullWeekly();
+        const s = document.getElementById('weekly-save-status');
+        if (s) { s.textContent = '☁️ تم التزامن'; setTimeout(() => s.textContent = '', 3000); }
+      }
+    });
+  </script>
 </head>
 <body>
 <div class="wrapper">
@@ -1355,15 +1404,23 @@ function onClassInput(inp) {
   }
 }
 
-function saveFullWeekly() {
+async function saveFullWeekly() {
   const data = {};
   document.querySelectorAll('#weekly-full-table textarea, #weekly-full-table input[data-key]').forEach(el => {
     data[el.dataset.key] = el.value;
   });
+  // حفظ محلي أولاً
   localStorage.setItem('ahmd-weekly-v3', JSON.stringify(data));
   const s = document.getElementById('weekly-save-status');
-  s.textContent = '✓ تم الحفظ';
-  setTimeout(() => { s.textContent = ''; }, 2500);
+  s.textContent = '⏳ جاري الحفظ...';
+  // حفظ في Firebase
+  if (typeof window.saveToFirebase === 'function') {
+    const ok = await window.saveToFirebase(data);
+    s.textContent = ok ? '☁️ تم الحفظ والمزامنة' : '✓ تم الحفظ محلياً';
+  } else {
+    s.textContent = '✓ تم الحفظ';
+  }
+  setTimeout(() => { s.textContent = ''; }, 3000);
 }
 
 // حفظ تلقائي كل دقيقتين
