@@ -1433,7 +1433,7 @@ function buildFullWeekly() {
               oninput="onClassInput(this)">
             <textarea data-key="${keyLesson}" placeholder="الدرس أو رابط..."
               class="${valLesson ? 'has-content' : ''}"
-              oninput="onLessonInput(this, '${d.idx}', '${pIdx}')"
+              oninput="onLessonInput(this, ${d.idx}, ${pIdx})"
             >${textOnly}</textarea>
             <div class="lesson-links-wrap" id="links-${d.idx}-${pIdx}">${linksHtml}</div>
           </div>
