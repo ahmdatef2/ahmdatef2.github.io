@@ -417,7 +417,23 @@
     font-size: 1.1rem; font-weight: 700; color: var(--heading);
     display: flex; align-items: center; gap: 0.5rem;
   }
-  .weekly-full-actions { display: flex; align-items: center; gap: 0.6rem; }
+  .weekly-full-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+  .weekly-nav-btn {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text); font-family: 'Cairo', sans-serif; font-size: 0.85rem;
+    padding: 0.3rem 0.75rem; cursor: pointer; transition: all 0.15s;
+  }
+  .weekly-nav-btn:hover { border-color: var(--accent1); color: var(--accent1); }
+  .weekly-range-label { font-size: 0.85rem; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  /* رابط داخل الـ textarea يظهر كـ hyperlink */
+  .lesson-link {
+    color: var(--accent1); text-decoration: underline; cursor: pointer;
+    font-size: 0.8rem; display: block; margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  .lesson-link:hover { opacity: 0.8; }
+  .lesson-cell-inner { display: flex; flex-direction: column; gap: 2px; }
   .weekly-save-btn {
     background: var(--accent1); color: white; border: none; border-radius: 8px;
     padding: 0.35rem 1rem; font-family: 'Cairo', sans-serif; font-size: 0.88rem;
@@ -576,10 +592,11 @@
     const app = initializeApp(firebaseConfig);
     const db  = getFirestore(app);
 
-    // حفظ في Firebase
-    window.saveToFirebase = async function(data) {
+    // حفظ في Firebase بمفتاح الأسبوع
+    window.saveToFirebase = async function(data, weekKey) {
       try {
-        await setDoc(doc(db, 'weekly', 'schedule'), {
+        const key = weekKey || 'schedule';
+        await setDoc(doc(db, 'weekly', key), {
           data: JSON.stringify(data),
           updatedAt: new Date().toISOString()
         });
@@ -587,20 +604,26 @@
       } catch(e) { console.error('Firebase save error:', e); return false; }
     };
 
-    // جلب من Firebase
-    window.loadFromFirebase = async function() {
+    // جلب من Firebase بمفتاح الأسبوع
+    window.loadFromFirebase = async function(weekKey) {
       try {
-        const snap = await getDoc(doc(db, 'weekly', 'schedule'));
+        const key = weekKey || 'schedule';
+        const snap = await getDoc(doc(db, 'weekly', key));
         if (snap.exists()) return JSON.parse(snap.data().data);
         return null;
       } catch(e) { console.error('Firebase load error:', e); return null; }
     };
 
-    // تحميل البيانات عند فتح الصفحة
+    // تحميل بيانات الأسبوع الحالي عند فتح الصفحة
     window.addEventListener('load', async () => {
-      const remoteData = await window.loadFromFirebase();
+      // حساب مفتاح الأسبوع الحالي
+      const now = new Date();
+      const sun = new Date(now);
+      sun.setDate(now.getDate() - now.getDay());
+      const weekKey = `ahmd-weekly-${sun.getFullYear()}-${sun.getMonth()+1}-${sun.getDate()}`;
+      const remoteData = await window.loadFromFirebase(weekKey);
       if (remoteData) {
-        localStorage.setItem('ahmd-weekly-v3', JSON.stringify(remoteData));
+        localStorage.setItem(weekKey, JSON.stringify(remoteData));
         if (typeof buildFullWeekly === 'function') buildFullWeekly();
         const s = document.getElementById('weekly-save-status');
         if (s) { s.textContent = '☁️ تم التزامن'; setTimeout(() => s.textContent = '', 3000); }
@@ -1035,6 +1058,9 @@
     <div class="weekly-full-header">
       <div class="weekly-full-title">📅 جدولي الأسبوعي</div>
       <div class="weekly-full-actions">
+        <button class="weekly-nav-btn" onclick="changeWeek(-1)">‹ السابق</button>
+        <span class="weekly-range-label" id="weekly-range-label">—</span>
+        <button class="weekly-nav-btn" onclick="changeWeek(1)">التالي ›</button>
         <span class="weekly-status-badge" id="weekly-save-status"></span>
         <button class="weekly-save-btn" onclick="saveFullWeekly()">💾 حفظ الجدول</button>
       </div>
@@ -1277,34 +1303,77 @@ const WEEK_DAYS = [
 ];
 
 const NUM_PERIODS = 9;
-
-// أسماء الحصص الافتراضية (يكتبها المستخدم وتُحفظ)
 const DEFAULT_PERIOD_LABELS = ['الحصة ١','الحصة ٢','الحصة ٣','الحصة ٤','الحصة ٥','الحصة ٦','الحصة ٧','الحصة ٨','الحصة ٩'];
 
-function getWeekDates() {
+// ── إدارة الأسابيع ──
+let weekOffset = 0; // 0 = هذا الأسبوع، 1 = التالي، -1 = السابق
+
+function getWeekDates(offset) {
   const now = new Date();
   const day = now.getDay();
+  // الأحد = بداية الأسبوع
+  const sunday = new Date(now);
+  sunday.setDate(now.getDate() - day + (offset * 7));
   const dates = [];
   for (let i = 0; i < 7; i++) {
-    const d = new Date(now);
-    d.setDate(now.getDate() - day + i);
+    const d = new Date(sunday);
+    d.setDate(sunday.getDate() + i);
     dates.push(d);
   }
   return dates;
 }
 
+function getWeekKey(offset) {
+  const dates = getWeekDates(offset);
+  const sun = dates[0];
+  return `ahmd-weekly-${sun.getFullYear()}-${sun.getMonth()+1}-${sun.getDate()}`;
+}
+
+function updateWeekLabel(offset) {
+  const dates = getWeekDates(offset);
+  const sun = dates[0];
+  const sat = dates[6];
+  const fmt = d => d.toLocaleDateString('ar-EG', {day:'numeric', month:'short'});
+  const lbl = document.getElementById('weekly-range-label');
+  if (lbl) lbl.textContent = `${fmt(sun)} — ${fmt(sat)}`;
+}
+
+function changeWeek(dir) {
+  weekOffset += dir;
+  buildFullWeekly();
+}
+
+// ── كشف الروابط في النص ──
+function extractLinks(text) {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const links = [];
+  let match;
+  while ((match = urlRegex.exec(text)) !== null) {
+    links.push(match[1]);
+  }
+  return links;
+}
+
+function textWithoutLinks(text) {
+  return text.replace(/(https?:\/\/[^\s]+)/g, '').trim();
+}
+
 function buildFullWeekly() {
-  const today = new Date().getDay();
-  const dates = getWeekDates();
-  const saved = JSON.parse(localStorage.getItem('ahmd-weekly-v3') || '{}');
-  const table = document.getElementById('weekly-full-table');
+  const today     = new Date().getDay();
+  const isThisWeek = weekOffset === 0;
+  const dates     = getWeekDates(weekOffset);
+  const weekKey   = getWeekKey(weekOffset);
+  const saved     = JSON.parse(localStorage.getItem(weekKey) || '{}');
+  const table     = document.getElementById('weekly-full-table');
   table.innerHTML = '';
+
+  updateWeekLabel(weekOffset);
 
   // ── رأس الجدول ──
   const thead = document.createElement('thead');
   let headRow = '<tr><th style="width:110px"></th>';
   WEEK_DAYS.forEach(d => {
-    const isToday   = d.idx === today;
+    const isToday   = isThisWeek && d.idx === today;
     const isWeekend = d.weekend;
     const cls = isToday ? 'col-today' : isWeekend ? 'col-weekend' : '';
     const dateStr = dates[d.idx].toLocaleDateString('ar-EG', {day:'numeric', month:'short'});
@@ -1321,7 +1390,6 @@ function buildFullWeekly() {
     const tr = document.createElement('tr');
     tr.className = 'row-period';
 
-    // خلية اسم الحصة + الوقت — كلاهما قابل للكتابة
     const savedLabel = saved[`plabel-${pIdx}`] || DEFAULT_PERIOD_LABELS[pIdx];
     const savedTime  = saved[`ptime-${pIdx}`]  || '';
     let row = `<td class="period-label">
@@ -1330,7 +1398,7 @@ function buildFullWeekly() {
     </td>`;
 
     WEEK_DAYS.forEach(d => {
-      const isToday   = d.idx === today;
+      const isToday   = isThisWeek && d.idx === today;
       const isWeekend = d.weekend;
       const cls = isToday ? 'col-today' : isWeekend ? 'col-weekend' : '';
 
@@ -1338,25 +1406,37 @@ function buildFullWeekly() {
         row += `<td class="lesson-cell ${cls}" style="text-align:center;vertical-align:middle;">
           <span style="font-size:1.2rem;opacity:0.3;">🌙</span></td>`;
       } else {
-        const keyClass  = `cls-${d.idx}-${pIdx}`;    // الفصل
-        const keyLesson = `lesson-${d.idx}-${pIdx}`;  // الدرس
+        const keyClass  = `cls-${d.idx}-${pIdx}`;
+        const keyLesson = `lesson-${d.idx}-${pIdx}`;
         const valClass  = saved[keyClass]  || '';
         const valLesson = saved[keyLesson] || '';
-
-        // لون الـ pill تلقائي بناءً على أول كلمة
         const pillColor = getPillColor(valClass);
 
+        // استخراج الروابط من نص الدرس
+        const links    = extractLinks(valLesson);
+        const textOnly = textWithoutLinks(valLesson);
+
+        // روابط HTML
+        const linksHtml = links.map(l => {
+          // اختصار عرض الرابط
+          let display = l.replace(/^https?:\/\//, '').split('/')[0];
+          return `<a class="lesson-link" href="${l}" target="_blank" title="${l}">🔗 ${display}</a>`;
+        }).join('');
+
         row += `<td class="lesson-cell ${cls}">
-          <input class="class-input ${pillColor ? 'pill-colored' : ''}" 
-            data-key="${keyClass}" 
-            value="${valClass}" 
-            placeholder="الفصل..."
-            style="${pillColor ? `background:${pillColor.bg};color:${pillColor.fg};` : ''}"
-            oninput="onClassInput(this)">
-          <textarea data-key="${keyLesson}" placeholder="الدرس..."
-            class="${valLesson ? 'has-content' : ''}"
-            oninput="this.className=this.value?'has-content':''"
-          >${valLesson}</textarea>
+          <div class="lesson-cell-inner">
+            <input class="class-input ${pillColor ? 'pill-colored' : ''}"
+              data-key="${keyClass}"
+              value="${valClass}"
+              placeholder="الفصل..."
+              style="${pillColor ? `background:${pillColor.bg};color:${pillColor.fg};` : ''}"
+              oninput="onClassInput(this)">
+            <textarea data-key="${keyLesson}" placeholder="الدرس أو رابط..."
+              class="${valLesson ? 'has-content' : ''}"
+              oninput="onLessonInput(this, '${d.idx}', '${pIdx}')"
+            >${textOnly}</textarea>
+            <div class="lesson-links-wrap" id="links-${d.idx}-${pIdx}">${linksHtml}</div>
+          </div>
         </td>`;
       }
     });
@@ -1368,7 +1448,23 @@ function buildFullWeekly() {
   table.appendChild(tbody);
 }
 
-// ألوان تلقائية بناءً على محتوى خانة الفصل
+// ── معالجة إدخال الدرس — كشف الروابط فوراً ──
+function onLessonInput(ta, dIdx, pIdx) {
+  ta.className = ta.value ? 'has-content' : '';
+  const links    = extractLinks(ta.value);
+  const wrap     = document.getElementById(`links-${dIdx}-${pIdx}`);
+  if (!wrap) return;
+  if (links.length) {
+    wrap.innerHTML = links.map(l => {
+      let display = l.replace(/^https?:\/\//, '').split('/')[0];
+      return `<a class="lesson-link" href="${l}" target="_blank" title="${l}">🔗 ${display}</a>`;
+    }).join('');
+  } else {
+    wrap.innerHTML = '';
+  }
+}
+
+// ألوان تلقائية
 const COLOR_PALETTE = [
   {bg:'rgba(58,123,213,0.15)',  fg:'#2563eb'},
   {bg:'rgba(52,211,153,0.15)',  fg:'#059669'},
@@ -1395,27 +1491,38 @@ function getPillColor(val) {
 function onClassInput(inp) {
   const val = inp.value.trim();
   const color = getPillColor(val);
-  if (color) {
-    inp.style.background = color.bg;
-    inp.style.color      = color.fg;
-  } else {
-    inp.style.background = '';
-    inp.style.color      = '';
-  }
+  if (color) { inp.style.background = color.bg; inp.style.color = color.fg; }
+  else        { inp.style.background = ''; inp.style.color = ''; }
 }
 
 async function saveFullWeekly() {
   const data = {};
+  const weekKey = getWeekKey(weekOffset);
+
   document.querySelectorAll('#weekly-full-table textarea, #weekly-full-table input[data-key]').forEach(el => {
-    data[el.dataset.key] = el.value;
+    // للـ textarea: احفظ النص + الروابط معاً
+    if (el.tagName === 'TEXTAREA') {
+      const dIdx = el.dataset.key.split('-')[1];
+      const pIdx = el.dataset.key.split('-')[2];
+      const wrap = document.getElementById(`links-${dIdx}-${pIdx}`);
+      const links = wrap ? Array.from(wrap.querySelectorAll('a')).map(a => a.href) : [];
+      const fullText = el.value + (links.length ? '
+' + links.join('
+') : '');
+      data[el.dataset.key] = fullText;
+    } else {
+      data[el.dataset.key] = el.value;
+    }
   });
-  // حفظ محلي أولاً
-  localStorage.setItem('ahmd-weekly-v3', JSON.stringify(data));
+
+  // حفظ محلي بمفتاح الأسبوع
+  localStorage.setItem(weekKey, JSON.stringify(data));
   const s = document.getElementById('weekly-save-status');
   s.textContent = '⏳ جاري الحفظ...';
-  // حفظ في Firebase
+
+  // حفظ في Firebase بمفتاح الأسبوع
   if (typeof window.saveToFirebase === 'function') {
-    const ok = await window.saveToFirebase(data);
+    const ok = await window.saveToFirebase(data, weekKey);
     s.textContent = ok ? '☁️ تم الحفظ والمزامنة' : '✓ تم الحفظ محلياً';
   } else {
     s.textContent = '✓ تم الحفظ';
@@ -1423,7 +1530,6 @@ async function saveFullWeekly() {
   setTimeout(() => { s.textContent = ''; }, 3000);
 }
 
-// حفظ تلقائي كل دقيقتين
 setInterval(saveFullWeekly, 120000);
 buildFullWeekly();
 
