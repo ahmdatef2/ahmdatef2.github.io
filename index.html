@@ -35,7 +35,6 @@
   }
   .wrapper { position: relative; z-index: 1; max-width: 1500px; margin: 0 auto; padding: 0 1.5rem 3rem; }
 
-  /* ══ شريط أعلى الصفحة ══ */
   .top-bar {
     display: flex; align-items: stretch; gap: 1rem;
     padding: 1.2rem 0; border-bottom: 1px solid var(--border);
@@ -47,7 +46,6 @@
   .brand-name a:hover { color: var(--accent1); }
   .brand-sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
 
-  /* ── الساعة ── */
   .clock-block {
     background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
     padding: 0.8rem 1.3rem;
@@ -61,7 +59,6 @@
   .clock-miladi { font-size: 0.93rem; color: var(--text); font-weight: 600; }
   .clock-hijri  { font-size: 0.82rem; color: var(--muted); }
 
-  /* ── الطقس ── */
   .weather-block {
     background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
     padding: 0.8rem 1.2rem;
@@ -74,7 +71,6 @@
   .weather-desc { font-size: 0.84rem; color: var(--text); }
   .weather-label { font-size: 0.76rem; color: var(--muted); }
 
-  /* ══ شريط البحث ══ */
   .search-section { margin-bottom: 1.5rem; }
   .search-bar {
     display: flex; align-items: center; gap: 0.5rem;
@@ -104,7 +100,6 @@
   }
   .search-go:hover { opacity: 0.85; }
 
-  /* ══ تخطيط رئيسي ══ */
   .main-layout {
     display: grid; grid-template-columns: 1fr 310px; gap: 1.25rem; align-items: start;
   }
@@ -112,7 +107,6 @@
     display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem;
   }
 
-  /* ── بطاقة ── */
   .card {
     background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
     padding: 1.3rem 1.3rem 1.1rem;
@@ -167,7 +161,6 @@
   .c-red    { background:rgba(248,113,113,0.15); color:#f87171; }
   .c-yellow { background:rgba(251,191,36,0.15);  color:#fbbf24; }
 
-  /* ══ الشريط الجانبي ══ */
   .sidebar { display: flex; flex-direction: column; gap: 1.25rem; position: sticky; top: 1rem; }
   .side-card {
     background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
@@ -179,7 +172,6 @@
     display: flex; align-items: center; gap: 0.5rem;
   }
 
-  /* قائمة المهام */
   .todo-input-row { display: flex; gap: 0.4rem; margin-bottom: 0.75rem; }
   .todo-input-row input {
     flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
@@ -211,7 +203,6 @@
   .todo-gtasks { display:block; text-align:center; margin-top:0.7rem; font-size:0.83rem; color:var(--accent1); text-decoration:none; opacity:0.8; transition:opacity 0.2s; }
   .todo-gtasks:hover { opacity:1; }
 
-  /* المفكرة */
   .notepad textarea {
     width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:10px;
     padding:0.75rem; color:var(--text); font-family:'Cairo',sans-serif; font-size:0.95rem;
@@ -226,7 +217,6 @@
 
   footer { margin-top:2.5rem; text-align:center; color:var(--muted); font-size:0.83rem; padding-top:1.2rem; border-top:1px solid var(--border); }
 
-  /* ══ زر تبديل الثيم ══ */
   .theme-toggle {
     margin-right: auto;
     background: var(--surface2); border: 1px solid var(--border);
@@ -238,7 +228,6 @@
   }
   .theme-toggle:hover { border-color: var(--accent1); color: var(--accent1); }
 
-  /* ══ الاختصارات السريعة ══ */
   .quick-section { margin-bottom: 1.5rem; }
   .quick-title {
     font-size: 0.82rem; color: var(--muted); margin-bottom: 0.7rem;
@@ -291,7 +280,6 @@
   .qm-save { background: var(--accent1); color: white; border: none; border-radius: 9px; padding: 0.45rem 1.2rem; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 0.92rem; }
   .qm-cancel { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); border-radius: 9px; padding: 0.45rem 1rem; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 0.92rem; }
 
-  /* ══ شريط الإنجاز ══ */
   .progress-bar-wrap {
     margin-top: 0.6rem; background: var(--surface2); border-radius: 50px;
     height: 8px; overflow: hidden;
@@ -306,7 +294,6 @@
     display: flex; justify-content: space-between;
   }
 
-  /* ══ الجدول الأسبوعي ══ */
   .weekly-grid {
     display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.35rem;
     margin-top: 0.3rem;
@@ -330,7 +317,6 @@
   .weekly-save button { background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font-family: 'Cairo', sans-serif; font-size: 0.79rem; padding: 0.2rem 0.6rem; cursor: pointer; transition: all 0.15s; }
   .weekly-save button:hover { border-color: var(--accent1); color: var(--accent1); }
 
-  /* ══ حافظة الروابط ══ */
   .clip-list { display: flex; flex-direction: column; gap: 0.3rem; max-height: 180px; overflow-y: auto; margin-bottom: 0.5rem; }
   .clip-list::-webkit-scrollbar { width: 3px; }
   .clip-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
@@ -358,7 +344,6 @@
   .clip-add-btn:hover { opacity: 0.8; }
   .clip-empty { font-size: 0.83rem; color: var(--muted); text-align: center; padding: 0.6rem 0; }
 
-  /* ══ القوائم القابلة للطي ══ */
   .links a.hidden-link { display: none; }
   .links.expanded a.hidden-link { display: flex; }
   .toggle-more {
@@ -372,7 +357,6 @@
   .toggle-arrow { transition: transform 0.2s; display: inline-block; }
   .links.expanded .toggle-arrow { transform: rotate(180deg); }
 
-  /* ══ مواقيت الصلاة ══ */
   .prayer-block {
     background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
     padding: 0.8rem 1rem;
@@ -397,13 +381,11 @@
 
   @media(max-width:900px){ .main-layout{grid-template-columns:1fr;} .sidebar{position:static;} }
   @media(max-width:600px){ .top-bar{flex-direction:column;} .engine-btns{flex-wrap:wrap;} .weekly-grid{grid-template-columns:repeat(4,1fr);} }
-
 </style>
 </head>
 <body>
 <div class="wrapper">
 
-  <!-- ══ شريط المعلومات العلوي ══ -->
   <div class="top-bar">
     <div class="brand">
       <div class="brand-name"><a href="https://arabicfootballmanager.blogspot.com/2024/09/blog-post.html" target="_blank">أحمد عاطف</a></div>
@@ -423,7 +405,6 @@
       <div class="weather-label">مصر الجديدة · القاهرة</div>
     </div>
 
-    <!-- مواقيت الصلاة -->
     <div class="prayer-block">
       <div class="prayer-title">🕌 مواقيت الصلاة — القاهرة</div>
       <div class="prayer-grid" id="prayer-grid">
@@ -439,7 +420,6 @@
     <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">🌙 الوضع الداكن</button>
   </div>
 
-  <!-- ══ شريط البحث المتعدد ══ -->
   <div class="search-section">
     <form class="search-bar" onsubmit="doSearch(event)">
       <input type="text" id="q" placeholder="ابحث في Google..." autocomplete="off">
@@ -453,15 +433,11 @@
     </form>
   </div>
 
-  <!-- ══ الاختصارات السريعة ══ -->
   <div class="quick-section">
     <div class="quick-title">⚡ اختصاراتي السريعة <span style="margin-right:auto;font-size:0.78rem;cursor:pointer;color:var(--accent1);" onclick="toggleEditQuick()" id="quick-edit-btn">تعديل</span></div>
-    <div class="quick-grid" id="quick-grid">
-      <!-- تُملأ بـ JS -->
-    </div>
+    <div class="quick-grid" id="quick-grid"></div>
   </div>
 
-  <!-- مودال إضافة اختصار -->
   <div class="quick-modal-overlay" id="quick-modal">
     <div class="quick-modal">
       <h3>➕ إضافة اختصار جديد</h3>
@@ -475,7 +451,6 @@
     </div>
   </div>
 
-  <!-- ══ المحتوى الرئيسي ══ -->
   <div class="main-layout">
     <div class="grid">
 
@@ -783,10 +758,9 @@
 
     </div><!-- end grid -->
 
-    <!-- ══ الشريط الجانبي ══ -->
+    <!-- الشريط الجانبي -->
     <div class="sidebar">
 
-      <!-- قائمة المهام -->
       <div class="side-card">
         <div class="side-title">✅ قائمة المهام اليومية</div>
         <div class="todo-input-row">
@@ -799,7 +773,6 @@
         <a class="todo-gtasks" href="https://tasks.google.com/tasks/" target="_blank">📎 فتح مهام Google</a>
       </div>
 
-      <!-- المفكرة -->
       <div class="side-card notepad">
         <div class="side-title">📌 مفكرة سريعة</div>
         <textarea id="notepad" placeholder="اكتب ملاحظاتك هنا..."></textarea>
@@ -809,7 +782,6 @@
         </div>
       </div>
 
-      <!-- حافظة الروابط المؤقتة -->
       <div class="side-card">
         <div class="side-title">🔖 حافظة الروابط المؤقتة</div>
         <div class="clip-list" id="clip-list"></div>
@@ -820,7 +792,7 @@
       </div>
 
     </div>
-  </div><!-- end main-layout -->
+  </div>
 
   <footer>صُمّمت بعناية · أحمد عاطف &nbsp;·&nbsp; <span id="year"></span></footer>
 </div>
@@ -838,8 +810,7 @@ const lightVars = {
 let isDark = localStorage.getItem('ahmd-theme') === 'dark';
 function applyTheme() {
   const vars = isDark ? darkVars : lightVars;
-  const root = document.documentElement;
-  Object.entries(vars).forEach(([k,v]) => root.style.setProperty(k, v));
+  Object.entries(vars).forEach(([k,v]) => document.documentElement.style.setProperty(k, v));
   document.getElementById('theme-btn').textContent = isDark ? '☀️ الوضع الفاتح' : '🌙 الوضع الداكن';
 }
 function toggleTheme() {
@@ -851,12 +822,15 @@ applyTheme();
 
 /* ══ الاختصارات السريعة ══ */
 const defaultQuick = [
-  {name:'Claude',   url:'https://claude.ai/new',            icon:'🤖'},
-  {name:'Gmail',    url:'https://mail.google.com/',          icon:'📧'},
-  {name:'Drive',    url:'https://drive.google.com/',         icon:'☁️'},
-  {name:'YouTube',  url:'https://youtube.com/',              icon:'▶️'},
-  {name:'ChatGPT',  url:'https://chatgpt.com/',              icon:'💬'},
-  {name:'Notion',   url:'https://notion.so/',                icon:'📓'},
+  {name:'Claude',    url:'https://claude.ai/new',                        icon:'🤖'},
+  {name:'Gmail',     url:'https://mail.google.com/',                     icon:'📧'},
+  {name:'Drive',     url:'https://drive.google.com/',                    icon:'☁️'},
+  {name:'YouTube',   url:'https://youtube.com/',                         icon:'▶️'},
+  {name:'ChatGPT',   url:'https://chatgpt.com/',                         icon:'💬'},
+  {name:'Notion',    url:'https://notion.so/',                           icon:'📓'},
+  {name:'مفضلتي',   url:'https://ahmdatef2.github.io/Favorites.html',   icon:'⭐'},
+  {name:'GitHub',    url:'https://github.com/',                          icon:'🐙'},
+  {name:'دروسي',    url:'https://ahmdatef2.github.io/Lessons.html',     icon:'📖'},
 ];
 let quickItems = JSON.parse(localStorage.getItem('ahmd-quick') || 'null') || defaultQuick;
 let quickEditMode = false;
@@ -865,7 +839,7 @@ function saveQuick() { localStorage.setItem('ahmd-quick', JSON.stringify(quickIt
 function renderQuick() {
   const grid = document.getElementById('quick-grid');
   grid.innerHTML = '';
-  if (quickEditMode) grid.classList.add('edit-mode'); else grid.classList.remove('edit-mode');
+  quickEditMode ? grid.classList.add('edit-mode') : grid.classList.remove('edit-mode');
   quickItems.forEach((item, i) => {
     const a = document.createElement('a');
     a.className = 'quick-item';
@@ -890,14 +864,12 @@ function deleteQuick(e, i) {
 }
 function closeQuickModal() {
   document.getElementById('quick-modal').classList.remove('open');
-  document.getElementById('qm-name').value = '';
-  document.getElementById('qm-url').value = '';
-  document.getElementById('qm-icon').value = '';
+  ['qm-name','qm-url','qm-icon'].forEach(id => document.getElementById(id).value = '');
 }
 function saveQuickItem() {
   const name = document.getElementById('qm-name').value.trim();
-  let url    = document.getElementById('qm-url').value.trim();
-  const icon = document.getElementById('qm-icon').value.trim() || '🔗';
+  let url     = document.getElementById('qm-url').value.trim();
+  const icon  = document.getElementById('qm-icon').value.trim() || '🔗';
   if (!name || !url) return;
   if (!url.startsWith('http')) url = 'https://' + url;
   quickItems.push({name, url, icon});
@@ -905,7 +877,7 @@ function saveQuickItem() {
 }
 renderQuick();
 
-/* ══ الاختصارات السريعة ══ */
+/* ══ الساعة والتاريخ ══ */
 function toHijri(date) {
   const jd = Math.floor((date.getTime() / 86400000) + 2440587.5);
   let l = jd - 1948440 + 10632;
@@ -921,37 +893,29 @@ function toHijri(date) {
   const hm = ['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
   return `${day} ${hm[month-1]} ${year} هـ`;
 }
-
 function tick() {
-  const now = new Date();
-  const pad = n => String(n).padStart(2,'0');
+  const now = new Date(), pad = n => String(n).padStart(2,'0');
   document.getElementById('t').textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-
   const days    = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
   const monthsA = ['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'];
   const monthsB = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
   const mi = now.getMonth();
-  document.getElementById('d-miladi').textContent =
-    `${days[now.getDay()]} ${now.getDate()} ${monthsA[mi]} / ${monthsB[mi]} ${now.getFullYear()} م`;
+  document.getElementById('d-miladi').textContent = `${days[now.getDay()]} ${now.getDate()} ${monthsA[mi]} / ${monthsB[mi]} ${now.getFullYear()} م`;
   document.getElementById('d-hijri').textContent = toHijri(now);
 }
 tick(); setInterval(tick, 1000);
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ══ الطقس — Open-Meteo (مجاني بلا مفتاح) ══ */
-// مصر الجديدة، القاهرة: 30.0869°N, 31.3265°E
+/* ══ الطقس ══ */
 (async () => {
   try {
     const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.0869&longitude=31.3265&current_weather=true&temperature_unit=celsius');
-    const d = await r.json();
-    const cw = d.current_weather;
-    const temp = Math.round(cw.temperature);
-    const code = cw.weathercode;
+    const d = await r.json(), cw = d.current_weather;
     const icons = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️'};
     const descs = {0:'صافٍ تماماً',1:'غائم جزئياً',2:'غائم جزئياً',3:'غائم',45:'ضباب',48:'ضباب',51:'رذاذ خفيف',53:'رذاذ',55:'رذاذ كثيف',61:'مطر خفيف',63:'مطر',65:'مطر غزير',80:'زخات مطر',81:'زخات',82:'زخات عنيفة',95:'عاصفة',96:'عاصفة ببَرَد',99:'عاصفة شديدة'};
-    document.getElementById('w-icon').textContent = icons[code] || '🌡️';
-    document.getElementById('w-temp').textContent = `${temp}°م`;
-    document.getElementById('w-desc').textContent = descs[code] || '—';
+    document.getElementById('w-icon').textContent = icons[cw.weathercode] || '🌡️';
+    document.getElementById('w-temp').textContent = `${Math.round(cw.temperature)}°م`;
+    document.getElementById('w-desc').textContent = descs[cw.weathercode] || '—';
   } catch(e) {
     document.getElementById('w-icon').textContent = '❌';
     document.getElementById('w-desc').textContent = 'تعذّر التحميل';
@@ -962,46 +926,34 @@ document.getElementById('year').textContent = new Date().getFullYear();
 function initCollapsibleLinks() {
   document.querySelectorAll('.links').forEach(linksEl => {
     const anchors = Array.from(linksEl.querySelectorAll('a'));
-    if (anchors.length <= 3) return; // لا حاجة للطي
-
-    // إخفاء الروابط بعد الثالث
+    if (anchors.length <= 3) return;
     anchors.slice(3).forEach(a => a.classList.add('hidden-link'));
-
-    // إنشاء زر عرض المزيد
     const btn = document.createElement('button');
     btn.className = 'toggle-more';
     const remaining = anchors.length - 3;
     btn.innerHTML = `<span class="toggle-arrow">▼</span> عرض ${remaining} أخرى`;
     btn.onclick = () => {
       const expanded = linksEl.classList.toggle('expanded');
-      btn.innerHTML = expanded
-        ? `<span class="toggle-arrow">▼</span> إخفاء`
-        : `<span class="toggle-arrow">▼</span> عرض ${remaining} أخرى`;
+      btn.innerHTML = expanded ? `<span class="toggle-arrow">▼</span> إخفاء` : `<span class="toggle-arrow">▼</span> عرض ${remaining} أخرى`;
     };
     linksEl.appendChild(btn);
   });
 }
 initCollapsibleLinks();
 
-/* ══ البحث المتعدد ══ */
+/* ══ البحث ══ */
 let currentEngine = 'google';
 function setEngine(btn) {
   document.querySelectorAll('.engine-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  currentEngine = btn.dataset.eng;
-  const hints = { google:'ابحث في Google...', bing:'ابحث في Bing...', perplexity:'ابحث في Perplexity...', youtube:'ابحث في YouTube...' };
+  btn.classList.add('active'); currentEngine = btn.dataset.eng;
+  const hints = {google:'ابحث في Google...',bing:'ابحث في Bing...',perplexity:'ابحث في Perplexity...',youtube:'ابحث في YouTube...'};
   document.getElementById('q').placeholder = hints[currentEngine];
 }
 function doSearch(e) {
   e.preventDefault();
   const q = document.getElementById('q').value.trim();
   if (!q) return;
-  const urls = {
-    google:     'https://www.google.com/search?q=',
-    bing:       'https://www.bing.com/search?q=',
-    perplexity: 'https://www.perplexity.ai/search?q=',
-    youtube:    'https://www.youtube.com/results?search_query='
-  };
+  const urls = {google:'https://www.google.com/search?q=',bing:'https://www.bing.com/search?q=',perplexity:'https://www.perplexity.ai/search?q=',youtube:'https://www.youtube.com/results?search_query='};
   window.open(urls[currentEngine] + encodeURIComponent(q), '_blank');
 }
 
@@ -1024,31 +976,25 @@ function renderTodos() {
     li.innerHTML = `<input type="checkbox" ${t.done?'checked':''} onchange="toggleTodo(${i})"><span>${t.text}</span><button class="todo-del" onclick="deleteTodo(${i})" title="حذف">✕</button>`;
     ul.appendChild(li);
   });
-  const done = todos.filter(t => t.done).length;
-  const pct  = Math.round((done / todos.length) * 100);
+  const done = todos.filter(t => t.done).length, pct = Math.round((done/todos.length)*100);
   document.getElementById('progress-fill').style.width = pct + '%';
   document.getElementById('progress-text').textContent = `${done} من ${todos.length} مهمة`;
-  document.getElementById('progress-pct').textContent  = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
 }
 function addTodo() {
-  const inp = document.getElementById('todo-in');
-  const text = inp.value.trim();
+  const inp = document.getElementById('todo-in'), text = inp.value.trim();
   if (!text) return;
-  todos.unshift({ text, done: false });
-  saveTodos(); renderTodos(); inp.value = '';
+  todos.unshift({text, done:false}); saveTodos(); renderTodos(); inp.value = '';
 }
 function toggleTodo(i) { todos[i].done = !todos[i].done; saveTodos(); renderTodos(); }
-function deleteTodo(i) { todos.splice(i, 1); saveTodos(); renderTodos(); }
+function deleteTodo(i) { todos.splice(i,1); saveTodos(); renderTodos(); }
 renderTodos();
 
-/* ══ مواقيت الصلاة — AlAdhan API (مجاني) ══ */
+/* ══ مواقيت الصلاة ══ */
 (async () => {
   try {
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2,'0');
-    const mm = String(today.getMonth()+1).padStart(2,'0');
-    const yyyy = today.getFullYear();
-    // القاهرة: method=5 (Egyptian General Authority of Survey)
+    const now = new Date();
+    const dd = String(now.getDate()).padStart(2,'0'), mm = String(now.getMonth()+1).padStart(2,'0'), yyyy = now.getFullYear();
     const r = await fetch(`https://api.aladhan.com/v1/timingsByCity/${dd}-${mm}-${yyyy}?city=Cairo&country=Egypt&method=5`);
     const d = await r.json();
     if (d.code === 200) {
@@ -1060,66 +1006,49 @@ renderTodos();
       document.getElementById('p-asr').textContent     = fmt(t.Asr);
       document.getElementById('p-maghrib').textContent = fmt(t.Maghrib);
       document.getElementById('p-isha').textContent    = fmt(t.Isha);
-
-      // تمييز الصلاة القادمة
-      const now = new Date();
       const toMin = s => { const [h,m] = s.split(':'); return +h*60 + +m; };
       const nowMin = now.getHours()*60 + now.getMinutes();
       const prayers = [
-        {id:'p-fajr',    min:toMin(t.Fajr),    row:0},
-        {id:'p-sunrise', min:toMin(t.Sunrise),  row:1},
-        {id:'p-dhuhr',   min:toMin(t.Dhuhr),    row:2},
-        {id:'p-asr',     min:toMin(t.Asr),      row:3},
-        {id:'p-maghrib', min:toMin(t.Maghrib),  row:4},
-        {id:'p-isha',    min:toMin(t.Isha),     row:5},
+        {id:'p-fajr',min:toMin(t.Fajr),row:0},{id:'p-sunrise',min:toMin(t.Sunrise),row:1},
+        {id:'p-dhuhr',min:toMin(t.Dhuhr),row:2},{id:'p-asr',min:toMin(t.Asr),row:3},
+        {id:'p-maghrib',min:toMin(t.Maghrib),row:4},{id:'p-isha',min:toMin(t.Isha),row:5},
       ];
       const next = prayers.find(p => p.min > nowMin);
-      if (next) {
-        const rows = document.querySelectorAll('#prayer-grid .prayer-row');
-        if (rows[next.row]) rows[next.row].classList.add('next-prayer');
-      }
+      if (next) { const rows = document.querySelectorAll('#prayer-grid .prayer-row'); if (rows[next.row]) rows[next.row].classList.add('next-prayer'); }
     }
-  } catch(e) { /* صامت */ }
+  } catch(e) {}
 })();
 
-/* ══ Favicons للروابط ══ */
+/* ══ Favicons ══ */
 function addFavicons() {
   document.querySelectorAll('.links a[href]').forEach(a => {
     try {
       const url = new URL(a.href);
-      const favicon = `https://icons.duckduckgo.com/ip3/${url.hostname}.ico`;
       const img = document.createElement('img');
-      img.src = favicon;
+      img.src = `https://icons.duckduckgo.com/ip3/${url.hostname}.ico`;
       img.width = 14; img.height = 14;
       img.style.cssText = 'border-radius:3px;flex-shrink:0;object-fit:contain;';
       img.onerror = () => img.remove();
-      // إزالة السهم ::before واستبداله بالأيقونة
-      a.style.setProperty('--no-before','none');
       a.insertBefore(img, a.firstChild);
     } catch(e) {}
   });
-  // إخفاء الـ ::before عند وجود صورة
   const style = document.createElement('style');
-  style.textContent = '.links a img ~ * { } .links a:has(img)::before { display:none; }';
+  style.textContent = '.links a:has(img)::before { display:none; }';
   document.head.appendChild(style);
 }
 addFavicons();
 
-/* ══ حافظة الروابط المؤقتة ══ */
+/* ══ حافظة الروابط ══ */
 let clips = JSON.parse(localStorage.getItem('ahmd-clips') || '[]');
 function saveClips() { localStorage.setItem('ahmd-clips', JSON.stringify(clips)); }
 function renderClips() {
   const list = document.getElementById('clip-list');
-  if (!clips.length) {
-    list.innerHTML = '<div class="clip-empty">لا توجد روابط بعد 🔗</div>';
-    return;
-  }
+  if (!clips.length) { list.innerHTML = '<div class="clip-empty">لا توجد روابط بعد 🔗</div>'; return; }
   list.innerHTML = '';
   clips.forEach((url, i) => {
     const div = document.createElement('div');
     div.className = 'clip-item';
-    let display = url.replace(/^https?:\/\//, '').substring(0, 40);
-    div.innerHTML = `<a href="${url}" target="_blank" title="${url}">${display}</a><button class="clip-del-btn" onclick="deleteClip(${i})" title="حذف">✕</button>`;
+    div.innerHTML = `<a href="${url}" target="_blank" title="${url}">${url.replace(/^https?:\/\//,'').substring(0,40)}</a><button class="clip-del-btn" onclick="deleteClip(${i})" title="حذف">✕</button>`;
     list.appendChild(div);
   });
 }
@@ -1127,26 +1056,21 @@ function addClip() {
   let url = document.getElementById('clip-in').value.trim();
   if (!url) return;
   if (!url.startsWith('http')) url = 'https://' + url;
-  clips.unshift(url);
-  saveClips(); renderClips();
+  clips.unshift(url); saveClips(); renderClips();
   document.getElementById('clip-in').value = '';
 }
-function deleteClip(i) { clips.splice(i, 1); saveClips(); renderClips(); }
+function deleteClip(i) { clips.splice(i,1); saveClips(); renderClips(); }
 renderClips();
 
-/* ══ المفكرة السريعة ══ */
-const notepad = document.getElementById('notepad');
-const noteStatus = document.getElementById('note-status');
+/* ══ المفكرة ══ */
+const notepad = document.getElementById('notepad'), noteStatus = document.getElementById('note-status');
 notepad.value = localStorage.getItem('ahmd-quicknote') || '';
 function saveNote() {
   localStorage.setItem('ahmd-quicknote', notepad.value);
-  noteStatus.textContent = '✓ تم الحفظ';
-  noteStatus.className = 'note-saved';
+  noteStatus.textContent = '✓ تم الحفظ'; noteStatus.className = 'note-saved';
   setTimeout(() => { noteStatus.textContent = ''; noteStatus.className = ''; }, 2000);
 }
-// حفظ تلقائي كل دقيقة
 setInterval(saveNote, 60000);
-// حفظ عند الإغلاق
 window.addEventListener('beforeunload', saveNote);
 </script>
 </body>
