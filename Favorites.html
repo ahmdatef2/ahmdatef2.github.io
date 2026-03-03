@@ -1,5 +1,246 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html><head><meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Favorites</title></head><body>
-  <br>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>لوحة المتابعة</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f3ef;--bg2:#edeae4;--w:#fff;--ink:#1a1814;--ink2:#4a4640;--ink3:#9a948e;--line:rgba(26,24,20,0.09);--tech:#2d5be3;--books:#c97b22;--doc:#1e8c5a;--fb:#1877f2;--rd:12px;--rds:7px;--sh:0 2px 20px rgba(26,24,20,0.07),0 1px 4px rgba(26,24,20,0.05);--shh:0 8px 40px rgba(26,24,20,0.13)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",sans-serif;padding-bottom:80px}
+header{background:var(--w);border-bottom:1px solid var(--line);padding:0 44px;display:flex;align-items:center;height:68px;gap:18px;position:sticky;top:0;z-index:200;box-shadow:0 4px 24px rgba(26,24,20,0.04)}
+.pulse{width:10px;height:10px;background:var(--tech);border-radius:50%;animation:pulse 2.5s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+header h1{font-size:1.18rem;font-weight:700}
+.sep{width:1px;height:26px;background:var(--line)}
+.sub{font-size:.74rem;color:var(--ink3)}
+.rbtn{margin-right:auto;background:transparent;border:1px solid var(--line);color:var(--ink2);padding:6px 14px;border-radius:var(--rds);cursor:pointer;font-size:.77rem;font-family:inherit;display:flex;align-items:center;gap:6px;transition:all .2s}
+.rbtn:hover{border-color:var(--tech);color:var(--tech);background:rgba(45,91,227,.05)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinning{animation:spin .8s linear infinite;display:inline-block}
+main{max-width:1280px;margin:0 auto;padding:34px 22px 0;display:flex;flex-direction:column;gap:28px}
+.section{background:var(--w);border-radius:var(--rd);box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;transition:box-shadow .3s}
+.section:hover{box-shadow:var(--shh)}
+.sh{padding:18px 24px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:30px;font-size:.7rem;font-weight:600}
+.bt{background:rgba(45,91,227,.08);color:var(--tech);border:1px solid rgba(45,91,227,.15)}
+.bb{background:rgba(201,123,34,.08);color:var(--books);border:1px solid rgba(201,123,34,.15)}
+.bd{background:rgba(30,140,90,.08);color:var(--doc);border:1px solid rgba(30,140,90,.15)}
+.stitle{font-size:1.03rem;font-weight:700}
+.scount{font-size:.71rem;color:var(--ink3);margin-top:1px}
+.rtag{margin-right:auto;font-size:.65rem;padding:3px 8px;border-radius:4px;background:rgba(45,91,227,.07);color:var(--tech);font-weight:600;border:1px solid rgba(45,91,227,.12);letter-spacing:.5px}
+.ch-row{display:grid;grid-template-columns:230px 1fr;border-bottom:1px solid var(--line);transition:background .18s;animation:fadeUp .35s ease both}
+.ch-row:last-child{border-bottom:none}
+.ch-row:hover{background:#faf9f7}
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.ch-info{padding:17px 17px 17px 22px;border-left:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;gap:9px}
+.ch-top{display:flex;align-items:center;gap:10px}
+.av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;overflow:hidden;background:var(--bg2)}
+.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.ch-name{font-size:.87rem;font-weight:600}
+.ch-handle{font-size:.69rem;color:var(--ink3)}
+.ch-lnk{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;color:var(--ink3);text-decoration:none;padding:4px 10px;border:1px solid var(--line);border-radius:5px;width:fit-content;transition:all .18s}
+.ch-lnk:hover{color:var(--tech);border-color:rgba(45,91,227,.3);background:rgba(45,91,227,.04)}
+.ch-vids{padding:13px 16px;display:flex;flex-direction:column;gap:6px;justify-content:center}
+.vr{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink);padding:7px 8px;border-radius:var(--rds);transition:background .18s}
+.vr:hover{background:var(--bg2)}
+.vth{width:80px;height:45px;border-radius:5px;object-fit:cover;flex-shrink:0;background:var(--bg2)}
+.vph{width:80px;height:45px;border-radius:5px;background:var(--bg2);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:18px}
+.vtx{font-size:.76rem;font-weight:500;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vdt{font-size:.66rem;color:var(--ink3);margin-top:3px}
+.state{padding:40px;text-align:center;color:var(--ink3);font-size:.8rem;display:flex;align-items:center;justify-content:center;gap:10px}
+.stsp{width:18px;height:18px;border:2px solid var(--bg2);border-top-color:var(--tech);border-radius:50%;animation:spin .8s linear infinite}
+.social-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.scard{background:var(--w);border-radius:var(--rd);box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;transition:box-shadow .3s,transform .25s}
+.scard:hover{box-shadow:var(--shh);transform:translateY(-2px)}
+.scard-head{padding:15px 19px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;font-weight:600;font-size:.87rem}
+.sdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dx{background:#000}.dfb{background:var(--fb)}
+.sbody{padding:28px 22px;display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center}
+.sav{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff}
+.sx{background:#000}.sfb{background:var(--fb)}
+.sname{font-size:.96rem;font-weight:700}
+.shandle{font-size:.71rem;color:var(--ink3)}
+.sdesc{font-size:.78rem;color:var(--ink2);line-height:1.7;max-width:270px}
+.sbtn{display:inline-flex;align-items:center;gap:8px;padding:9px 20px;border-radius:var(--rds);font-size:.81rem;font-weight:600;text-decoration:none;color:#fff;font-family:inherit;transition:opacity .2s,transform .2s;box-shadow:0 2px 8px rgba(0,0,0,0.13)}
+.sbtn:hover{opacity:.87;transform:translateY(-1px)}
+.sbx{background:#111}.sbfb{background:var(--fb)}
+.snote{font-size:.68rem;color:var(--ink3);padding:9px 15px;border-top:1px solid var(--line);text-align:center;background:#faf9f7}
+/* download btn */
+.dl-bar{text-align:center;padding:10px;background:rgba(45,91,227,.06);border-bottom:1px solid rgba(45,91,227,.12)}
+.dl-btn{display:inline-flex;align-items:center;gap:7px;padding:7px 18px;background:var(--tech);color:#fff;border:none;border-radius:var(--rds);cursor:pointer;font-size:.8rem;font-family:inherit;font-weight:600;text-decoration:none;transition:opacity .2s}
+.dl-btn:hover{opacity:.85}
+@media(max-width:880px){.ch-row{grid-template-columns:1fr}.ch-info{border-left:none;border-bottom:1px solid var(--line)}.social-row{grid-template-columns:1fr}}
+@media(max-width:600px){header{padding:0 13px;height:54px}main{padding:13px 10px 0;gap:14px}.sh{padding:13px}.ch-info,.ch-vids{padding:12px}}
+</style>
+</head>
+<body>
 
-</body></html>
+<div class="dl-bar">
+  <button class="dl-btn" onclick="downloadPage()">⬇ تنزيل الصفحة كملف HTML</button>
+</div>
+
+<header>
+  <div class="pulse"></div>
+  <h1>لوحة المتابعة</h1>
+  <div class="sep"></div>
+  <span class="sub">تحديث تلقائي عبر RSS</span>
+  <button class="rbtn" onclick="loadAll()"><span id="ri">&#8635;</span> تحديث</button>
+</header>
+
+<main>
+  <div class="section">
+    <div class="sh">
+      <span class="badge bt">&#128187; تقنية</span>
+      <div><div class="stitle">عالم التقنية</div><div class="scount">6 قنوات</div></div>
+      <span class="rtag">RSS LIVE</span>
+    </div>
+    <div id="tl"><div class="state"><div class="stsp"></div> جارٍ التحميل…</div></div>
+  </div>
+
+  <div class="section">
+    <div class="sh">
+      <span class="badge bb">&#128218; ثقافة</span>
+      <div><div class="stitle">عالم الكتب</div><div class="scount">3 قنوات</div></div>
+      <span class="rtag">RSS LIVE</span>
+    </div>
+    <div id="bl"><div class="state"><div class="stsp"></div> جارٍ التحميل…</div></div>
+  </div>
+
+  <div class="section">
+    <div class="sh">
+      <span class="badge bd">&#127909; وثائقي</span>
+      <div><div class="stitle">الوثائقية</div><div class="scount">3 قنوات</div></div>
+      <span class="rtag">RSS LIVE</span>
+    </div>
+    <div id="dl"><div class="state"><div class="stsp"></div> جارٍ التحميل…</div></div>
+  </div>
+
+  <div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+      <span style="font-size:.67rem;font-weight:700;color:var(--ink3);letter-spacing:.8px">وسائل التواصل الاجتماعي</span>
+      <div style="flex:1;height:1px;background:var(--line)"></div>
+      <span style="font-size:.65rem;color:var(--ink3);padding:2px 8px;border:1px solid var(--line);border-radius:4px">روابط مباشرة</span>
+    </div>
+    <div class="social-row">
+      <div class="scard">
+        <div class="scard-head"><div class="sdot dx"></div> تويتر / X <span style="font-size:.69rem;color:var(--ink3);margin-right:auto;font-weight:400">@ArtificialAnlys</span></div>
+        <div class="sbody">
+          <div class="sav sx" style="font-size:28px;letter-spacing:-1px">&#120143;</div>
+          <div><div class="sname">Artificial Analysis</div><div class="shandle">@ArtificialAnlys</div></div>
+          <div class="sdesc">تحليلات مستقلة ومقارنات معمّقة لنماذج الذكاء الاصطناعي — أداء، تكلفة، سرعة، وجودة.</div>
+          <a href="https://x.com/ArtificialAnlys" target="_blank" class="sbtn sbx">&#120143; &nbsp;فتح الحساب على X</a>
+        </div>
+        <div class="snote">⚠️ لا تتيح منصة X تضمين التغريدات مجاناً — الزر يفتح الحساب مباشرة</div>
+      </div>
+      <div class="scard">
+        <div class="scard-head"><div class="sdot dfb"></div> فيسبوك <span style="font-size:.69rem;color:var(--ink3);margin-right:auto;font-weight:400">bramjcomputer</span></div>
+        <div class="sbody">
+          <div class="sav sfb" style="font-size:30px;font-weight:800">f</div>
+          <div><div class="sname">برمج كمبيوتر</div><div class="shandle">bramjcomputer</div></div>
+          <div class="sdesc">شروحات برمجية ودروس تقنية بالعربية — للمبتدئين والمحترفين في عالم التطوير.</div>
+          <a href="https://www.facebook.com/bramjcomputer?locale=ar_AR" target="_blank" class="sbtn sbfb">f &nbsp;فتح الصفحة على فيسبوك</a>
+        </div>
+        <div class="snote">⚠️ فيسبوك يمنع التضمين الخارجي — الزر يفتح الصفحة مباشرة</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+// ─── تنزيل الصفحة ───
+function downloadPage() {
+  var html = document.documentElement.outerHTML;
+  var blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'dashboard.html';
+  a.click();
+}
+
+// ─── بيانات القنوات ───
+var CH = {
+  tech: [
+    {h:'dr_hebaahmed',            n:'د. هبة أحمد',          e:'&#128187;'},
+    {h:'every_day_a_new_website', n:'موقع كل يوم',          e:'&#127760;'},
+    {h:'infotech4you_Marwasoliman',n:'مروة سليمان',         e:'&#128241;'},
+    {h:'AbdellatifSaidA',         n:'عبداللطيف سعيد',       e:'&#9729;'},
+    {h:'AMRSALEM800',             n:'عمرو سالم',            e:'&#9889;'},
+    {h:'PythonArab',              n:'بايثون عربي',           e:'&#128013;'}
+  ],
+  books: [
+    {h:'KhairJaleesBook', n:'خير جليس', e:'&#128214;'},
+    {h:'Jeelyaqraa',      n:'جيل يقرأ', e:'&#128218;'},
+    {h:'a5drcom',         n:'أخضر',     e:'&#127807;'}
+  ],
+  doc: [
+    {h:'aljazeeradocumentary', n:'الجزيرة الوثائقية',  e:'&#127909;'},
+    {h:'AsharqDoc',            n:'الشرق الوثائقية',    e:'&#127902;'},
+    {h:'natgeoabudhabime',     n:'ناشيونال جيوغرافيك', e:'&#127758;'}
+  ]
+};
+
+async function getFeed(h) {
+  var u = encodeURIComponent('https://www.youtube.com/feeds/videos.xml?user=' + h);
+  try {
+    var r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + u + '&count=3');
+    var d = await r.json();
+    if (d.status === 'ok' && d.items && d.items.length) return d;
+  } catch(e) {}
+  return null;
+}
+
+function ago(s) {
+  var df = Math.floor((Date.now() - new Date(s)) / 86400000);
+  if (df === 0) return 'اليوم';
+  if (df === 1) return 'أمس';
+  if (df < 7)  return 'منذ ' + df + ' أيام';
+  if (df < 30) return 'منذ ' + Math.floor(df/7) + ' أسابيع';
+  if (df < 365)return 'منذ ' + Math.floor(df/30) + ' أشهر';
+  return 'منذ سنة+';
+}
+
+function buildRow(ch, f, i) {
+  var url = 'https://www.youtube.com/@' + ch.h;
+  var av = ch.e;
+  if (f && f.feed && f.feed.image)
+    av = '<img src="' + f.feed.image + '" alt="" onerror="this.parentElement.innerHTML=\'' + ch.e + '\'">';
+  var nm = (f && f.feed && f.feed.title) || ch.n;
+  var vids = '<p style="font-size:.75rem;color:var(--ink3);padding:6px 8px">لا توجد فيديوهات عبر RSS حالياً</p>';
+  if (f && f.items && f.items.length) {
+    vids = f.items.slice(0,3).map(function(it) {
+      var id = (it.link.match(/v=([^&]+)/) || [])[1];
+      var th = id ? 'https://img.youtube.com/vi/' + id + '/mqdefault.jpg' : '';
+      return '<a href="' + it.link + '" target="_blank" class="vr">'
+        + (th ? '<img class="vth" src="' + th + '" alt="" loading="lazy">' : '<div class="vph">&#9654;</div>')
+        + '<div><div class="vtx">' + it.title + '</div><div class="vdt">' + ago(it.pubDate) + '</div></div></a>';
+    }).join('');
+  }
+  return '<div class="ch-row" style="animation-delay:' + (i*55) + 'ms">'
+    + '<div class="ch-info"><div class="ch-top"><div class="av">' + av + '</div>'
+    + '<div><div class="ch-name">' + nm + '</div><div class="ch-handle">@' + ch.h + '</div></div></div>'
+    + '<a href="' + url + '" target="_blank" class="ch-lnk">&#8599; زيارة القناة</a></div>'
+    + '<div class="ch-vids">' + vids + '</div></div>';
+}
+
+async function loadSec(k, id) {
+  var el = document.getElementById(id);
+  var feeds = await Promise.all(CH[k].map(function(c){ return getFeed(c.h); }));
+  el.innerHTML = CH[k].map(function(c,i){ return buildRow(c, feeds[i], i); }).join('');
+}
+
+async function loadAll() {
+  var ri = document.getElementById('ri');
+  ri.classList.add('spinning');
+  ['tl','bl','dl'].forEach(function(id) {
+    document.getElementById(id).innerHTML = '<div class="state"><div class="stsp"></div> جارٍ التحميل…</div>';
+  });
+  await Promise.all([loadSec('tech','tl'), loadSec('books','bl'), loadSec('doc','dl')]);
+  ri.classList.remove('spinning');
+}
+
+loadAll();
+</script>
+</body>
+</html>
