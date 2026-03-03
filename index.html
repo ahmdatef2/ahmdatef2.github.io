@@ -1052,76 +1052,7 @@
   </div><!-- end main-layout -->
 
   <!-- ══ الجدول الأسبوعي الكامل ══ -->
-  <div class="weekly-full-section">
-    <div class="weekly-full-header">
-      <div class="weekly-full-title">📅 جدولي الأسبوعي</div>
-      <div class="weekly-full-actions">
-        <span class="weekly-status-badge" id="weekly-save-status"></span>
-        <button class="weekly-save-btn" onclick="saveFullWeekly()">💾 حفظ الجدول</button>
-      </div>
-    </div>
-    <div class="weekly-table-wrap">
-      <table class="weekly-table" id="weekly-full-table">
-        <!-- تُملأ بـ JS -->
-      </table>
-    </div>
-  </div>
-
   
-  <div class="lcal-section">
-    <div class="lcal-panel">
-      <div class="lcal-header">
-        <div class="lcal-title">&#128218; خطة الدروس</div>
-        <div class="lcal-controls">
-          <div class="lcal-gf">
-            <button class="lgf g5 on" data-grade="الصف الخامس" onclick="lcToggleGrade(this.dataset.grade)">خامس</button>
-            <button class="lgf g6 on" data-grade="الصف السادس" onclick="lcToggleGrade(this.dataset.grade)">سادس</button>
-            <button class="lgf g1i on" data-grade="الصف الأول الإعدادي" onclick="lcToggleGrade(this.dataset.grade)">أول إعدادي</button>
-            <button class="lgf g2i on" data-grade="الصف الثاني الإعدادي" onclick="lcToggleGrade(this.dataset.grade)">ثاني إعدادي</button>
-          </div>
-          <div class="lcal-week-nav">
-            <button class="lcal-btn" id="lc-prev" onclick="lcPrev()">&#8594;</button>
-            <span class="lcal-week-label" id="lc-wname"></span>
-            <span class="lcal-week-code" id="lc-wcode"></span>
-            <button class="lcal-btn" id="lc-next" onclick="lcNext()">&#8592;</button>
-          </div>
-          <button class="lcal-btn act" onclick="lcGoNow()">الأسبوع الحالي</button>
-        </div>
-      </div>
-      <div class="lcal-sync-bar">
-        <div class="lcal-sync-dot" id="lc-sync-dot"></div>
-        <span class="lcal-sync-txt" id="lc-sync-txt">جاري التحميل...</span>
-      </div>
-      <div class="lcal-grid-wrap"><div class="lcal-grid" id="lc-grid"></div></div>
-      <div class="lcal-unsched" id="lc-unsched" style="display:none">
-        <div class="lcal-unsched-lbl">&#9203; دروس لم تُجدَّل — اضغط لتحديد يوم التدريس</div>
-        <div class="lcal-upills" id="lc-upills"></div>
-      </div>
-      <div class="lcal-stats" id="lc-stats"></div>
-    </div>
-  </div>
-  <div class="lmodal-ov" id="lmodal-ov">
-    <div class="lmodal">
-      <div class="lmodal-hdr">
-        <div class="lmodal-tit" id="lm-title"></div>
-        <button class="lmodal-cls" onclick="lcCloseModal()">&#x2715;</button>
-      </div>
-      <div class="lmodal-sub" id="lm-sub"></div>
-      <label>&#128197; تاريخ التدريس</label><input type="date" id="lm-date">
-      <label>&#128278; الحالة</label>
-      <select id="lm-status">
-        <option value="لم يُدرَّس بعد">لم يُدرَّس بعد</option>
-        <option value="تم تدريسه">&#x2705; تم تدريسه</option>
-      </select>
-      <label>&#128221; ملاحظات</label>
-      <textarea id="lm-notes" placeholder="ملاحظات على هذا الدرس..."></textarea>
-      <div class="lmodal-acts">
-        <button class="lm-clr" onclick="lcClearLesson()">مسح التعديلات</button>
-        <button class="lm-can" onclick="lcCloseModal()">إلغاء</button>
-        <button class="lm-save" onclick="lcSaveLesson()">&#128190; حفظ</button>
-      </div>
-    </div>
-  </div>
 
   <footer>صُمّمت بعناية · أحمد عاطف &nbsp;·&nbsp; <span id="year"></span></footer>
 </div>
