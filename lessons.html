@@ -139,6 +139,23 @@ footer{margin-top:2rem;text-align:center;color:var(--m);font-size:.8rem;padding-
 <script>
 document.getElementById("yr").textContent=new Date().getFullYear();
 const D=[];
+const WK=[
+  {week:1,weekName:"الأسبوع الأول",weekCode:"001",weekStart:"2026-02-08"},
+  {week:2,weekName:"الأسبوع الثاني",weekCode:"002",weekStart:"2026-02-15"},
+  {week:3,weekName:"الأسبوع الثالث",weekCode:"003",weekStart:"2026-02-22"},
+  {week:4,weekName:"الأسبوع الرابع",weekCode:"004",weekStart:"2026-03-01"},
+  {week:5,weekName:"الأسبوع الخامس",weekCode:"005",weekStart:"2026-03-08"},
+  {week:6,weekName:"الأسبوع السادس",weekCode:"006",weekStart:"2026-03-15"},
+  {week:7,weekName:"الأسبوع السابع",weekCode:"007",weekStart:"2026-03-22"},
+  {week:8,weekName:"الأسبوع الثامن",weekCode:"008",weekStart:"2026-03-29"},
+  {week:9,weekName:"الأسبوع التاسع",weekCode:"009",weekStart:"2026-04-05"},
+  {week:10,weekName:"الأسبوع العاشر",weekCode:"010",weekStart:"2026-04-12"},
+  {week:11,weekName:"الأسبوع الحادي عشر",weekCode:"011",weekStart:"2026-04-19"},
+  {week:12,weekName:"الأسبوع الثاني عشر",weekCode:"012",weekStart:"2026-04-26"},
+  {week:13,weekName:"الأسبوع الثالث عشر",weekCode:"013",weekStart:"2026-05-03"},
+  {week:14,weekName:"الأسبوع الرابع عشر",weekCode:"014",weekStart:"2026-05-10"},
+  {week:15,weekName:"الأسبوع الخامس عشر",weekCode:"015",weekStart:"2026-05-17"}
+];
 const GID="4793a362e432b0a4ab05e76af170b992";
 const TK0="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";
 const FL="lessons_edits.json";
@@ -194,9 +211,9 @@ function mg(){
 }
 function render(){
   const all=mg(),wl=all.filter(l=>l.week===St.w&&St.g.has(l.grade));
-  const sp=D.find(l=>l.week===St.w)||{},ws=sp.weekStart||"2026-02-08",dys=days(ws);
-  const wn_val=sp.weekName||"";document.getElementById("wn").textContent=wn_val;
-  document.getElementById("wc").textContent=sp.weekCode||"";
+  const sp=WK.find(w=>w.week===St.w)||WK[0],ws=sp.weekStart,dys=days(ws);
+  const wn_val=sp.weekName;document.getElementById("wn").textContent=wn_val;
+  document.getElementById("wc").textContent=sp.weekCode;
   document.getElementById("pv").disabled=St.w<=1;
   document.getElementById("nx").disabled=St.w>=15;
   const tot=wl.length,dn=wl.filter(l=>l.status===DS).length;
@@ -249,7 +266,7 @@ function onc(grade,date,weekName){
   const id="usr-"+Date.now();
   mid=id;
   // pre-fill E with skeleton
-  const wk=D.find(l=>l.weekStart<=date)||{week:St.w,weekName:weekName,weekCode:String(St.w).padStart(3,"0"),weekStart:date};
+  const wk=WK.find(w=>w.week===St.w)||WK[0];
   E[id]={id,grade,week:St.w,weekName:weekName,weekCode:String(St.w).padStart(3,"0"),weekStart:wk.weekStart||date,lesson:"",teachDate:date,status:"لم يُدرَّس بعد",notes:""};
   document.getElementById("ms").textContent=grade+" · "+weekName;
   document.getElementById("mln").value="";
@@ -259,9 +276,9 @@ function onc(grade,date,weekName){
   document.getElementById("mo").classList.add("op");
 }
 function gn(){const t=new Date();t.setHours(0,0,0,0);let f=1;
-  for(let w=1;w<=15;w++){const s=D.find(l=>l.week===w);if(!s)continue;
+  for(let w=0;w<WK.length;w++){const s=WK[w];
     const w2=new Date(s.weekStart),we=new Date(w2);we.setDate(w2.getDate()+4);
-    if(t>=w2&&t<=we){f=w;break;}if(t<w2){f=w;break;}}St.w=f;render();}
+    if(t>=w2&&t<=we){f=s.week;break;}if(t<w2){f=s.week;break;}}St.w=f;render();}
 function tg(g){if(St.g.has(g)){if(St.g.size>1)St.g.delete(g);}else St.g.add(g);
   document.querySelectorAll(".gb").forEach(b=>b.classList.toggle("on",St.g.has(b.dataset.g)));render();}
 document.getElementById("mo").addEventListener("click",function(e){if(e.target===this)cm();});
