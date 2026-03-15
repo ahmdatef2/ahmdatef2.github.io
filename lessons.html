@@ -257,7 +257,7 @@ function om(id){mid=id;const l=mg().find(x=>x.id===id);if(!l)return;
   document.getElementById("mn").value=l.notes||"";
   document.getElementById("mo").classList.add("op");}
 function cm(){document.getElementById("mo").classList.remove("op");mid=null;}
-function sl(){if(!mid)return;const ln=document.getElementById("mln").value.trim();E[mid]={lesson:ln,teachDate:document.getElementById("md").value,status:document.getElementById("ms2").value,notes:document.getElementById("mn").value};cm();render();sched();}
+function sl(){if(!mid)return;const ln=document.getElementById("mln").value.trim();const prev=E[mid]||{};E[mid]=Object.assign({},prev,{lesson:ln,teachDate:document.getElementById("md").value,status:document.getElementById("ms2").value,notes:document.getElementById("mn").value});cm();render();sched();}
 function cll(){if(!mid)return;delete E[mid];cm();render();sched();}
 function pv(){if(St.w>1){St.w--;render();}}
 function nx(){if(St.w<15){St.w++;render();}}
